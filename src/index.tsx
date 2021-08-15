@@ -36,16 +36,16 @@ export const setStorage = (key: string, arg: string) => {
     if (!arg) throw new Error(
         'The storage events should not be used with no arguments',
     );
-    eventDispatcher(key);
     localStorage.setItem(key, arg)
+    eventDispatcher(key);
 }
 
 export const removeStorage = (key: string) => {
     if (!key) throw new Error(
         'The storage events should not be used with no key',
     )
-    eventDispatcher(key);
     localStorage.removeItem(key)
+    eventDispatcher(key);
 }
 
 export const getStorage = (key: string) => {
@@ -56,8 +56,8 @@ export const getStorage = (key: string) => {
 }
 
 export const clearStorage = (callEventKey?: string) => {
-    if(callEventKey)eventDispatcher(callEventKey);
     localStorage.clear();
+    if(callEventKey)eventDispatcher(callEventKey);
 }
 
 export default useStorageListener
