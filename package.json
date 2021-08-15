@@ -1,16 +1,21 @@
 {
-  "name": "use-event-listener",
+  "name": "use-storage-listener",
   "version": "1.0.0",
   "description": "Shortcut to detected when a event listener changed",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./lib/esm/index.d.ts",
-  "author": "Nicolas Reyes Bejarano",
+  "author": {
+    "name": "Nicolas Reyes",
+    "email": "nreyes@lean-tech.io",
+    "url": "https://twitter.com/acnicolasdc"
+  },
   "license": "MIT",
   "scripts": {
     "build": "yarn build:esm && yarn build:cjs",
     "build:esm": "tsc",
-    "build:cjs": "tsc --module commonjs --outDir lib/cjs"
+    "build:cjs": "tsc --module commonjs --outDir lib/cjs",
+    "bump": "npm version"
   },
   "devDependencies": {
     "@types/react": "^17.0.18",
@@ -22,5 +27,15 @@
   "peerDependencies": {
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
- }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/acnicolasdc/use-storage-listener.git"
+  },
+  "bugs": {
+    "url": "https://github.com/acnicolasdc/use-storage-listener.git/issues"
+  },
+  "files": [
+    "/lib"
+ ]
 }
