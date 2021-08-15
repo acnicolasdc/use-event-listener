@@ -55,4 +55,9 @@ export const getStorage = (key: string) => {
     return localStorage.getItem(key)
 }
 
+export const clearStorage = (callEventKey?: string) => {
+    if(callEventKey)eventDispatcher(callEventKey);
+    localStorage.clear();
+}
+
 export default useStorageListener

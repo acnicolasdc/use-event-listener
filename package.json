@@ -28,6 +28,9 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
   },
+  "keywords": [
+    "util"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/acnicolasdc/use-storage-listener.git"
@@ -37,5 +40,5 @@
   },
   "files": [
     "/lib"
- ]
+  ]
 }
