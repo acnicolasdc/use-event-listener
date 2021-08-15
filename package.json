@@ -1,6 +1,6 @@
 {
   "name": "use-storage-listener",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Shortcut to detected when a event listener changed",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",

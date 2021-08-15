@@ -12,4 +12,5 @@ declare const useStorageListener: (callback: EffectCallback | EffectCallbackWith
 export declare const setStorage: (key: string, arg: string) => void;
 export declare const removeStorage: (key: string) => void;
 export declare const getStorage: (key: string) => string | null;
+export declare const clearStorage: (callEventKey?: string | undefined) => void;
 export default useStorageListener;
