@@ -1,5 +1,7 @@
 # Installation
---
+
+###### `(i) useLocalStorage Bug solved 1.0.6`
+----------
 ### Using npm:
 
 `$ npm i use-storage-listener`

@@ -40,7 +40,11 @@ export const useLocalStorage = (key: string) => {
   }, []);
 
   useEffect(() => {
-    if (state) setStorage(key, state);
+    if (state){ 
+      setStorage(key, state);
+    }else {
+      removeStorage(key)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
