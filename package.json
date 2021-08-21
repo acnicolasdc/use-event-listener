@@ -1,6 +1,6 @@
 {
   "name": "use-storage-listener",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Controls the local storage from any file or as a react state",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",

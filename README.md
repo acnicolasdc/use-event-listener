@@ -1,6 +1,6 @@
 # Installation
 
-###### `(i) useLocalStorage Bug solved 1.0.6`
+###### `(i) new namespace for events 1.0.7`
 ----------
 ### Using npm:
 
