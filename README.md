@@ -17,8 +17,8 @@ function Test() {
     setValue(value)
   }, ['rememberMe'])
 
-  const set = (remeber) => {
-    setStorage('rememberMe', remeber);
+  const set = (remember) => {
+    setStorage('rememberMe', remember);
   }
   return (
     <div className="App">
