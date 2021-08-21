@@ -7,17 +7,23 @@ type EffectCallbackWithParameters = (data: DataEffectParameters) => void;
 type DependencyList = string[];
 type UseEffectReturn = ReturnType<typeof useEffect>;
 
+const eventsNamespace = "useStorageListener_";
+
+const keyBuilder = (key: string) => {
+  return `${eventsNamespace}${key}`;
+}
+
 const useEffectStorageListener = (
   callback: EffectCallback | EffectCallbackWithParameters,
   dependencies: DependencyList
 ): UseEffectReturn => {
   useEffect(() => {
     dependencies.forEach((key: string) => {
-      window.addEventListener(key, storageWatcher);
+      window.addEventListener(keyBuilder(key), storageWatcher);
     });
     return () => {
       dependencies.forEach((key: string) => {
-        window.removeEventListener(key, storageWatcher);
+        window.removeEventListener(keyBuilder(key), storageWatcher);
       });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -57,9 +63,9 @@ export const useLocalStorage = (key: string) => {
   };
 
   useEffect(() => {
-    window.addEventListener(key, storageWatcher);
+    window.addEventListener(keyBuilder(key), storageWatcher);
     return () => {
-      window.removeEventListener(key, storageWatcher);
+      window.removeEventListener(keyBuilder(key), storageWatcher);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
@@ -73,7 +79,7 @@ export const useLocalStorage = (key: string) => {
  */
 const eventDispatcher = (key: string) => {
   return window.dispatchEvent(
-    new Event(key, { bubbles: true, cancelable: true })
+    new Event(keyBuilder(key), { bubbles: true, cancelable: true })
   );
 };
 
