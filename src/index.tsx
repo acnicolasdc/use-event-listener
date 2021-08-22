@@ -45,7 +45,7 @@ const useEffectStorageListener = (
 };
 
 export const useLocalStorage = (key: string) => {
-  const [state, setState] = useState<null | string>(null);
+  const [state, setState] = useState<null | any>(null);
 
   useEffect(() => {
     setState(() => {
