@@ -5,7 +5,7 @@ Sometimes we need to be able to detect changes in our localSotrage independently
 
 > note: The listener effect can listen to other events that are not related to the localStorage, simply specify the name of the event to listen to 🧐
 
-###### `(i) new auto type transformation 1.0.8` 🧩
+###### `(i) new auto type transformation 1.1.0` 🧩
 ----------
 ### Using npm or yarn:
 
