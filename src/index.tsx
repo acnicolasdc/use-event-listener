@@ -8,15 +8,19 @@ type DependencyList = string[];
 type UseEffectReturn = ReturnType<typeof useEffect>;
 
 enum StoreTypes {
-  primitive = "USL_PRIMITIVE",
-  object = "USL_OBJECT",
-  undefined = "USL_UNDEFINED",
+  primitive = "usl_primitive",
+  object = "usl_object",
+  undefined = "usl_undefined",
 }
 
 const eventsNamespace = "useStorageListener_";
 
 const keyBuilder = (key: string) => {
   return `${eventsNamespace}${key}`;
+};
+
+const removeKeyBuilder = (key: string) => {
+  return key.replace(eventsNamespace, "");
 };
 
 const useEffectStorageListener = (
@@ -100,40 +104,43 @@ const isPrimitive = (value: unknown): boolean => {
  * @returns
  */
 const detectValueType = (value: unknown): StoreTypes => {
-  if (Array.isArray(value) || typeof value === "object") {
-    return StoreTypes.object;
-  }
+  if (!value) return StoreTypes.undefined;
   if (isPrimitive(value)) {
     return StoreTypes.primitive;
+  }
+  if (Array.isArray(value) || typeof value === "object") {
+    return StoreTypes.object;
   }
   return StoreTypes.undefined;
 };
 /**
- * @param type 
- * @param value 
- * @returns 
+ * @param type
+ * @param value
+ * @returns
  */
-const prefixBuilder = (type:StoreTypes, value: string ): string => {
+const prefixBuilder = (type: StoreTypes, value: string): string => {
   return `${value}?${eventsNamespace}type=${type}`;
-} 
+};
 /**
  * @param value
  * @returns
  */
 const parseValueToSetStorage = (value: unknown): string | null => {
   const type = detectValueType(value);
-  if(type === StoreTypes.undefined) return null;
-  return prefixBuilder(type, JSON.stringify(value))
+  if (type === StoreTypes.undefined) return null;
+  const parseValue =
+    type === StoreTypes.object ? JSON.stringify(value) : (value as string);
+  return prefixBuilder(type, parseValue);
 };
 
 const parseValueToGetStorage = (value: string) => {
-  const nonParseData = value.split('?useStorageListener_type=');
+  const nonParseData = value.split("?useStorageListener_type=");
   switch (nonParseData[1]) {
-    case StoreTypes.object:  
-      return JSON.parse(nonParseData[0])
+    case StoreTypes.object:
+      return JSON.parse(nonParseData[0]);
     default:
       return nonParseData[0];
-  } 
+  }
 };
 // Local storage methods
 /**
@@ -145,8 +152,9 @@ export const setStorage = (key: string, arg: unknown) => {
   if (!key)
     throw new Error("The storage events should not be used with no key");
   if (!value)
-    throw new Error("The storage events should not be used with no arguments");
-  //const value = typeof arg === "string" ? arg : JSON.stringify(arg);
+    throw new Error(
+      "The storage events should not be used with null, undefined or no arguments "
+    );
   localStorage.setItem(key, value);
   eventDispatcher(key);
 };
@@ -156,7 +164,7 @@ export const setStorage = (key: string, arg: unknown) => {
 export const removeStorage = (key: string) => {
   if (!key)
     throw new Error("The storage events should not be used with no key");
-  localStorage.removeItem(key);
+  localStorage.removeItem(removeKeyBuilder(key));
   eventDispatcher(key);
 };
 /**
@@ -166,8 +174,8 @@ export const removeStorage = (key: string) => {
 export const getStorage = (key: string): string | null => {
   if (!key)
     throw new Error("The storage events should not be used with no key");
-  const value = localStorage.getItem(key)
-  if(!value) return value;
+  const value = localStorage.getItem(removeKeyBuilder(key));
+  if (!value) return value;
   return parseValueToGetStorage(value);
 };
 /**
