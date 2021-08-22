@@ -10,8 +10,8 @@ declare type DependencyList = string[];
 declare type UseEffectReturn = ReturnType<typeof useEffect>;
 declare const useEffectStorageListener: (callback: EffectCallback | EffectCallbackWithParameters, dependencies: DependencyList) => UseEffectReturn;
 export declare const useLocalStorage: (key: string) => {
-    state: string | null;
-    setState: import("react").Dispatch<import("react").SetStateAction<string | null>>;
+    state: any;
+    setState: import("react").Dispatch<any>;
 };
 /**
  * @param key
