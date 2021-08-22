@@ -40,7 +40,7 @@ const useEffectStorageListener = (
   }, []);
 
   const storageWatcher = (e: any) => {
-    callback({ key: e.type, value: getStorage(e.type) });
+    callback({ key: removeKeyBuilder(e.type), value: getStorage(e.type) });
   };
 };
 
@@ -155,7 +155,7 @@ export const setStorage = (key: string, arg: unknown) => {
     throw new Error(
       "The storage events should not be used with null, undefined or no arguments "
     );
-  localStorage.setItem(key, value);
+  localStorage.setItem(removeKeyBuilder(key), value);
   eventDispatcher(key);
 };
 /**
