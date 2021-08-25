@@ -114,14 +114,6 @@ const detectValueType = (value: unknown): StoreTypes => {
   return StoreTypes.undefined;
 };
 /**
- * @param type
- * @param value
- * @returns
- */
-const prefixBuilder = (type: StoreTypes, value: string): string => {
-  return `${value}?${eventsNamespace}type=${type}`;
-};
-/**
  * @param value
  * @returns
  */
@@ -130,18 +122,9 @@ const parseValueToSetStorage = (value: unknown): string | null => {
   if (type === StoreTypes.undefined) return null;
   const parseValue =
     type === StoreTypes.object ? JSON.stringify(value) : (value as string);
-  return prefixBuilder(type, parseValue);
+  return parseValue;
 };
 
-const parseValueToGetStorage = (value: string) => {
-  const nonParseData = value.split("?useStorageListener_type=");
-  switch (nonParseData[1]) {
-    case StoreTypes.object:
-      return JSON.parse(nonParseData[0]);
-    default:
-      return nonParseData[0];
-  }
-};
 // Local storage methods
 /**
  * @param key
@@ -176,7 +159,11 @@ export const getStorage = (key: string): string | null => {
     throw new Error("The storage events should not be used with no key");
   const value = localStorage.getItem(removeKeyBuilder(key));
   if (!value) return value;
-  return parseValueToGetStorage(value);
+  try {
+    return JSON.parse(value);
+  } catch (e) {
+    return value as any;
+  }
 };
 /**
  * @param callEventKey
